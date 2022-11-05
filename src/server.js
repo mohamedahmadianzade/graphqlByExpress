@@ -9,7 +9,11 @@ import express from "express";
 import http from 'http';
 
 
+
+// simple middleware to extract token from requet and attach it a new key in request object
 const extractAccessToken = (req, res, next) => {
+    // graphql query will not start with this operation name
+    // this operation is called each second by apolo dashboard
     if (req?.body.operationName != "IntrospectionQuery")
         req.newAccessToken = req?.headers?.authorization
     next()
